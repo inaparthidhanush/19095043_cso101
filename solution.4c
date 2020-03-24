@@ -1,0 +1,164 @@
+#include <bits/stdc++.h> 
+
+using namespace std; 
+ 
+struct Node 
+{ 
+	int data; 
+	Node *left, *right;  
+	static Node* getnode(int data) 
+	{ 
+		Node* newNode = (Node*)malloc(sizeof(Node)); 
+		newNode->data = data; 
+		newNode->left = newNode->right = NULL; 
+		return newNode; 
+	} 
+};  
+class Deque 
+{ 
+	Node* front; 
+	Node* rear; 
+	int Size; 
+
+public: 
+	Deque() 
+	{ 
+		front = rear = NULL; 
+		Size = 0; 
+	} 
+ 
+	void insertFront(int data); 
+	void insertRear(int data); 
+	void drawFront(); 
+	void drawRear(); 
+	int peekFront(); 
+	int peekRear(); 
+	int size(); 
+	bool isEmpty(); 
+	void erase(); 
+}; 
+ 
+bool Deque::isEmpty() 
+{ 
+	return (front == NULL); 
+} 
+ 
+int Deque::size() 
+{ 
+	return Size; 
+} 
+ 
+void Deque::insertFront(int data) 
+{ 
+	Node* newNode = Node::getnode(data);  
+	if (newNode == NULL) 
+		cout << "OverFlow\n"; 
+	else
+	{  
+		if (front == NULL) 
+			rear = front = newNode; 
+ 
+		else
+		{ 
+			newNode->right = front; 
+			front->left = newNode; 
+			front = newNode;
+	   }
+		Size++; 
+	} 
+} 
+
+void Deque::insertRear(int data) 
+{ 
+	Node* newNode = Node::getnode(data);  
+	if (newNode == NULL) 
+		cout << "OverFlow\n"; 
+	else
+	{ 
+		if (rear == NULL) 
+			front = rear = newNode;  
+		else
+		{ 
+			newNode->left = rear; 
+			rear->right = newNode; 
+			rear = newNode; 
+		} 
+
+		Size++; 
+	} 
+} 
+ 
+void Deque::drawFront() 
+{  
+	if (isEmpty()) 
+		cout << "UnderFlow\n"; 
+	else
+	{ 
+		Node* temp = front; 
+		front = front->right; 
+		 
+		if (front == NULL) 
+			rear = NULL; 
+		else
+			front->left = NULL; 
+		free(temp);  
+		Size--; 
+	} 
+} 
+ 
+void Deque::drawRear() 
+{ 
+	 
+	if (isEmpty()) 
+		cout << "UnderFlow\n";  
+	else
+	{ 
+		Node* temp = rear; 
+		rear = rear->left; 
+		if (rear == NULL) 
+			front = NULL; 
+		else
+			rear->right = NULL; 
+		free(temp); 
+		Size--; 
+	} 
+} 
+ 
+int Deque::peekFront() 
+{ 
+	 
+	if (isEmpty()) 
+		return -1; 
+	return front->data; 
+} 
+ 
+int Deque::peekRear() 
+{ 
+	 
+	if (isEmpty()) 
+		return -1; 
+	return rear->data; 
+}  
+void Deque::erase() 
+{ 
+	rear = NULL; 
+	while (front != NULL) 
+	{ 
+		Node* temp = front; 
+		front = front->right; 
+		free(temp); 
+	} 
+	Size = 0; 
+}  
+int main() 
+{ 
+	int n,b,i;
+	cin >>n;
+	cin >> b;
+	char inp[100][b];
+	Deque dq;
+	for(i=0;i<b;i++){
+		cin >> inp[100][i];
+	}
+	return 0; 
+} 
