@@ -1,0 +1,100 @@
+#include<iostream>
+using namespace std;
+
+struct BST
+{
+    int info;
+    struct BST *left;
+    struct BST *right;
+};
+
+typedef struct BST node;
+
+node *createNode(char n)
+{
+    node *newnode;
+    newnode=(node*)malloc(sizeof(node));
+    newnode->info=n;
+    newnode->left=newnode->right=NULL;
+    return newnode;
+}
+
+node* add (node *head,char n)
+{
+    if(head==NULL)
+    {
+        head=createNode(n);
+    }
+    else if(n<=head->info)
+    {
+        head->left=add(head->left,n);
+    }
+    else
+    {
+        head->right=add(head->right,n);
+    }
+    return head;
+}
+
+void preorder(node *head)
+{
+    if(head==NULL)
+        return;
+    cout<<head->info<<" ";
+    preorder(head->left);
+    preorder(head->right);
+}
+void inorder(node *head)
+{
+    if(head==NULL)
+        return;
+    inorder(head->left);
+    cout<<head->info<<" ";
+    inorder(head->right);
+}
+void postorder(node *head)
+{
+    if(head==NULL)
+    return;
+    postorder(head->left);
+    postorder(head->right);
+    cout<<head->info<<" ";;
+}
+
+int main()
+{
+   node *head=NULL;
+   int n,choice;
+   char ch;
+   do
+   {
+   cout<<" "<<"press 1 for add";
+cout<<" "<<"press 2 for preorder traversal";
+     cout<<" "<<"press 3 for inorder traversal";
+      cout<<" "<<"press 4 for post order traversal";
+       cout<<"" <<"please enter in your choice";
+       cin>>choice;
+       switch(choice)
+       {
+           case 1cout<<"\n"<<"enter a number to be add";
+                  cin>>n;
+                  head=add(head,n);
+                  break;
+           case 2:cout<<"\n "<<"preorder traversal";
+                  preorder(head);
+                  cout<<" \n";
+                  break;
+        case 3:cout<<"\n"<<"inorder traversal";
+                  inorder(head);
+                  cout<<"\n";
+                  break;
+            case 4:cout<<"\n"<<"postorder traversal";
+                  postorder(head);
+                  cout<<"\n";
+                  break;
+           default:cout<<"\wrong input.";
+       }
+       cout<<"\n"<<"Do you want to continue(y/n)?";
+   }while(ch=='y'||ch!='n');
+   return 0;
+}
