@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void LargestTripletMultiplication(int arr[], int n)
+{
+	priority_queue<int> q;
+
+	for (int i = 0; i < n; i++) {
+		q.push(arr[i]);
+
+		if (q.size() < 3)
+			cout << "-1" << endl;
+		else {
+			int a = q.top();
+			q.pop();
+			int b = q.top();
+			q.pop();
+			int c = q.top();
+			q.pop();
+
+			int ans = a * b * c;
+			cout << ans << endl;
+			q.push(a);
+			q.push(b);
+			q.push(c);
+		}
+	}
+	return;
+}
+int main()
+{
+	int A,i;
+	cin >> A;
+	int arr[A];
+	for(i=0;i<A;i++){
+            cin >> arr[i];}
+
+	int n = sizeof(arr) / sizeof(arr[0]);
+	LargestTripletMultiplication(arr, n);
+	return 0;
+}
